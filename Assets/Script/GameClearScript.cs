@@ -14,6 +14,7 @@ public class GameClearScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             FadeManager.Instance.LoadScene("TitleScene", 1.0f);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class sticktogetherScript : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class sticktogetherScript : MonoBehaviour
     Vector3 before;
 
     public GameObject[] objects;
+    public GameObject[] smoll;
 
     int count;
     int Number;
@@ -24,40 +26,82 @@ public class sticktogetherScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        smoll = GameObject.FindGameObjectsWithTag("smoll");
     }
 
     // Update is called once per frame
     void Update()
     {
-        objects = GameObject.FindGameObjectsWithTag("After");
-        count = objects.Length;
-        Number = 76 - count;
-        Debug.Log(Number);
-
-        if(Number == 0)
-        {
-            FadeManager.Instance.LoadScene("GameClearScene", 1.0f);
-        }
-
     }
+
     void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag == "Player")
+        objects = GameObject.FindGameObjectsWithTag("After");
+        count = objects.Length;
+        Number = 75 - count;
+
+        if (other.gameObject.tag == "Player")
         {
-            PlayerPos = other.transform.position;
+            if (Number > 0)
+                if (gameObject.tag == "smoll")
+                {
+                    PlayerPos = other.transform.position;
 
-            Distance = transform.position - PlayerPos;
-            Distance = Distance * 0.8f;
-            transform.position = PlayerPos + Distance;
- 
+                    Distance = transform.position - PlayerPos;
+                    Distance = Distance * 0.5f;
+                    transform.position = PlayerPos + Distance;
 
 
-            this.transform.parent = other.transform;
-            rb = GetComponent<Rigidbody>();
-            Destroy(rb);
+                    this.transform.parent = other.transform;
+                    rb = GetComponent<Rigidbody>();
+                    Destroy(rb);
 
-            this.tag = "After";
+                    this.tag = "After";
+
+                }
+                else {
+                    if (Number <= 50)
+                    {
+                        if (gameObject.tag == "medium")
+                        {
+                            PlayerPos = other.transform.position;
+
+                            Distance = transform.position - PlayerPos;
+                            Distance = Distance * 0.5f;
+                            transform.position = PlayerPos + Distance;
+
+
+                            this.transform.parent = other.transform;
+                            rb = GetComponent<Rigidbody>();
+                            Destroy(rb);
+
+                            this.tag = "After";
+                        }
+                    }
+
+                }
+                else
+                {
+                    if (Number <= 30)
+                    {
+                        if (gameObject.tag == "big")
+                        {
+                            PlayerPos = other.transform.position;
+
+                            Distance = transform.position - PlayerPos;
+                            Distance = Distance * 0.5f;
+                            transform.position = PlayerPos + Distance;
+
+
+                            this.transform.parent = other.transform;
+                            rb = GetComponent<Rigidbody>();
+                            Destroy(rb);
+
+                            this.tag = "After";
+                        }
+                    }
+
+                }
         }
     }
 }

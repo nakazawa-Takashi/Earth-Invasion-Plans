@@ -23,6 +23,7 @@ public class Transform
     public float[] translation;
     public float[] rotation;
     public float[] scaling;
+    internal object transform;
 }
 
 
